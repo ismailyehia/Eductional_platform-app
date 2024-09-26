@@ -1,38 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:provider/provider.dart';
+import 'package:quran_tdress/features/authentication/controllers/class_provider.dart';
+import 'package:quran_tdress/features/authentication/screens/login/login_teacher.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ClassStudentsProvider()),
+      ],
+      child: const App(),
+    ),);
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
 
-  // This widget is the root of your application.
+class App extends StatelessWidget {
+  const App({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return  const GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.system,
+      // theme: TAppTheme.lightTheme,
+      // darkTheme: TAppTheme.darkTheme,
+      home: LoginScreen(),
+
       
-      
-      home: const MyHomePage(),
+
+
+
     );
   }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key,});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-
-
-  @override
-  State<MyHomePage> createState() => LoginScreen();
 }
 

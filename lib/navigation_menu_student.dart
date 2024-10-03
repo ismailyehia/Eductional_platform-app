@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:quran_tdress/features/authentication/screens/classes/classes_screen.dart';
+import 'features/screens/classes/classes_screen.dart';
 
 class NavigationMenuStudent extends StatelessWidget {
   const NavigationMenuStudent({super.key});

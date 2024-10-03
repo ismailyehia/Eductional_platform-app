@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:quran_tdress/features/authentication/screens/classes/classes_screen.dart';
+import 'package:quran_tdress/features/screens/show_Students/students_screen.dart';
+import 'package:quran_tdress/features/screens/classes/classes_screen.dart';
+
 
 class NavigationMenuTeacher extends StatelessWidget {
   const NavigationMenuTeacher({super.key});
@@ -43,7 +45,7 @@ class NavigationController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
 
 
-final screens = [const ClassesScreen (),  Container(), Container(),Container(),];
+final screens = [const ClassesScreen (),  StudentsScreen(), Container(),Container(),];
 
 
 }

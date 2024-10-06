@@ -1,14 +1,13 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
-import 'package:quran_tdress/features/screens/home/progress_teacher_screen.dart';
 import 'package:quran_tdress/features/shop/class_progress_button/progress_details.dart';
 import 'package:quran_tdress/features/shop/class_progress_button/progress_details_quran.dart';
 import 'package:quran_tdress/provider/classprovider/class_courses_provider.dart';
 
 class ClassProgress extends StatelessWidget {
-  const ClassProgress({super.key, required this.classnameee, required this.classId});
+  const ClassProgress(
+      {super.key, required this.classnameee, required this.classId});
 
   final String classnameee;
   final int classId;
@@ -20,26 +19,12 @@ class ClassProgress extends StatelessWidget {
 
     // Ensure the data is fetched when the widget is built
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      classProvider.fetchClassData(classId); 
+      classProvider.fetchClassData(classId);
     });
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>  ProgressTeacher(
-                          classname: '',
-                          classid: classId,
-                        )));
-          },
-          icon: const Icon(
-            Iconsax.arrow_left,
-            size: 25,
-          ),
-        ),
+        
       ),
       body: Consumer<ClassCourseProvider>(
         builder: (context, classProvider, child) {
@@ -84,9 +69,10 @@ class ClassProgress extends StatelessWidget {
 
                     return GestureDetector(
                       onTap: () {
+                        print(" Course id is :${course.id}");
                         if (course.type == "quran") {
                           // Navigate to a different page if the course type is "quran"
-                          Navigator.pushReplacement(
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
@@ -95,7 +81,7 @@ class ClassProgress extends StatelessWidget {
                           );
                         } else {
                           // Otherwise, navigate to the existing ProgressDetails page
-                          Navigator.pushReplacement(
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
@@ -106,9 +92,9 @@ class ClassProgress extends StatelessWidget {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.white, 
+                          color: Colors.white,
                           border: Border.all(
-                            color: Colors.black, 
+                            color: Colors.black,
                             width: 2,
                           ),
                           borderRadius: BorderRadius.circular(10),

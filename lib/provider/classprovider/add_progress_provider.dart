@@ -5,8 +5,28 @@ import 'package:quran_tdress/common/custom/custom_snackbar.dart';
 import 'package:quran_tdress/features/shop/class_progress_button/progress_details.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
+class Lesson {
+  final int id;
+  final String name;
+
+  Lesson({
+    required this.id,
+    required this.name,
+  });
+
+  factory Lesson.fromJson(Map<String, dynamic> json) {
+    return Lesson(
+      id: json['id'] as int,
+      name: json['name'] as String,
+    );
+  }
+}
+
 class AddProgressProvider extends ChangeNotifier {
   bool isLoading = false;
+
+  
 
   Future<void> addProgress({
     required BuildContext context, 

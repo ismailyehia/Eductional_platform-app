@@ -84,7 +84,7 @@ class ViewNoteScreen extends StatelessWidget {
             TRoundedContainer(
               width: 300,
               height: 60,
-              backgroundColor: Colors.purple,
+              backgroundColor: Color(0xFF7F56D9),
               padding: const EdgeInsets.only(
                 top: 5,
                 left: 130,
@@ -104,7 +104,7 @@ class ViewNoteScreen extends StatelessWidget {
                     date: updatedDate,
                   ).then((_) {
     // Navigate back to ProgressDetails and reload the screen
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => ProgressDetails(courseeid: courseid),
@@ -130,16 +130,18 @@ class ViewNoteScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             TRoundedContainer(
+              showBorder: true,
+              borderColor: const Color(0xFF475467),
               width: 300,
               height: 60,
-              backgroundColor: Colors.black,
+              backgroundColor: Colors.white,
               padding: const EdgeInsets.only(
                 top: 5,
                 left: 130,
               ),
               child: InkWell(
                 onTap: () {
-                  Navigator.pushReplacement(
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>

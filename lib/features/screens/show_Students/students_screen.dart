@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:quran_tdress/features/screens/show_Students/students_profile.dart';
+import 'package:quran_tdress/features/screens/home/widgets/get_student_course.dart';
 import 'package:quran_tdress/provider/studentprovider/student_provider.dart';
 
 class StudentsScreen extends StatelessWidget {
@@ -43,14 +43,7 @@ class StudentsScreen extends StatelessWidget {
                     final student = studentProvider.students[index];
                     return GestureDetector(
                       onTap: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Studentsprofileshow(
-                                    name: student.name,
-                                    email: student.email,
-                                    photourl: student.profile.profilePhotoUrl),
-                                    ));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>  StudentCoursesScreen(studentId: student.id,)));
                       },
                       child: ListTile(
                         leading: CircleAvatar(

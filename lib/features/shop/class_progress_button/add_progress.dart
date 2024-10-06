@@ -12,6 +12,7 @@ class AddProgressScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TextEditingController lessonname = TextEditingController();
     TextEditingController lessonnumber = TextEditingController();
     TextEditingController note = TextEditingController();
     TextEditingController from = TextEditingController();
@@ -137,29 +138,35 @@ class AddProgressScreen extends StatelessWidget {
                 TRoundedContainer(
                   width: 300,
                   height: 60,
-                  backgroundColor: Colors.purple,
+                  backgroundColor:const Color(0xFF7F56D9),
                   padding: const EdgeInsets.only(
                     top: 5,
                     left: 160,
                   ),
-                  child: InkWell(
+                  child: GestureDetector(
                     onTap: () {
-
-
+                      // Lesson lesson = Lesson(
+                      // id: int.tryParse(lessonnumber.text)??1,
+                      // name: lessonname.text
+                      // );
+                      //
+                      print(" course id is $courseid");
                       provider.addProgress(
                         courseId: courseid,
-                        lessonId: int.tryParse(lessonnumber.text) ?? 1, 
-                        suraId: (from.text.isEmpty || to.text.isEmpty)? null: 1,
+                        lessonId: int.tryParse(lessonnumber.text) ?? 1,
+                        suraId:
+                            (from.text.isEmpty || to.text.isEmpty) ? null : 1,
                         note: note.text,
                         date: dateController.text,
                         from: from.text.isNotEmpty
                             ? int.tryParse(from.text)
                             : null, // Nullable
-                        to: to.text.isNotEmpty
-                            ? int.tryParse(to.text)
-                            : null, context: context, // Nullable
-                      ); },
-                      child: const Row( children: [
+                        to: to.text.isNotEmpty ? int.tryParse(to.text) : null,
+                        context: context,
+                      );
+                    },
+                    child: const Row(
+                      children: [
                         Text(
                           "Save",
                           style: TextStyle(
@@ -173,30 +180,30 @@ class AddProgressScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 TRoundedContainer(
+                  showBorder: true,
+                  borderColor: const Color(0xFF475467),
                   width: 300,
                   height: 60,
-                  backgroundColor: Colors.black,
+                  backgroundColor:  Colors.white,
                   padding: const EdgeInsets.only(
                     top: 5,
                     left: 160,
                   ),
-                  child: InkWell(
-                    onTap: (){
-                      
-          
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const   ProgressDetails(courseeid: 0)));
-          
-         
+                  child: GestureDetector(
+                    onTap: () {
+                      print("course id : $courseid");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ProgressDetails(courseeid: courseid)));
                     },
                     child: const Row(
                       children: [
                         Text(
                           "Close",
                           style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.grey,
                               fontSize: 20,
                               fontWeight: FontWeight.bold),
                         ),
@@ -212,5 +219,3 @@ class AddProgressScreen extends StatelessWidget {
     );
   }
 }
-
-

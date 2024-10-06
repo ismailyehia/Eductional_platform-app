@@ -8,11 +8,12 @@ class Studentsprofileshow extends StatelessWidget {
       {super.key,
       required this.name,
       required this.email,
-      required this.photourl});
+      required this.photourl, required this.studentId});
 
   final String name;
   final String email;
   final String photourl;
+  final int studentId;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,10 @@ class Studentsprofileshow extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=> const NavigationMenuTeacher()));
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const NavigationMenuTeacher()));
           },
           icon: const Icon(
             Iconsax.arrow_left,

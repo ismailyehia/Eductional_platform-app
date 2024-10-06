@@ -1,10 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
-import 'package:quran_tdress/features/screens/home/progress_teacher_screen.dart';
 import 'package:quran_tdress/features/screens/home/widgets/date_calender.dart';
 import 'package:quran_tdress/features/shop/class_progress_button/progress_details.dart';
 import 'package:quran_tdress/features/shop/class_progress_button/progress_details_quran.dart';
@@ -17,23 +13,14 @@ class StudentCoursesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final studentProvider = Provider.of<StudentsProvider>(context, listen: false);
+    final studentProvider =
+        Provider.of<StudentsProvider>(context, listen: false);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       studentProvider.fetchStudentData(studentId);
     });
 
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () => Get.offAll(() => const ProgressTeacher(
-                    classname: '',
-                    classid: 0,
-                  )),
-              icon: const Icon(CupertinoIcons.clear)),
-        ],
-      ),
       body: Consumer<StudentsProvider>(
         builder: (context, studentProvider, child) {
           if (studentProvider.isLoading) {
@@ -41,21 +28,22 @@ class StudentCoursesScreen extends StatelessWidget {
           }
 
           final studentModel = studentProvider.student;
-           // Check if studentModel is null
-    if (studentModel == null) {
-      print("Error: Student model is null.");
-      return const Center(child: Text("No student data available"));
-    }
+          // Check if studentModel is null
+          if (studentModel == null) {
+            print("Error: Student model is null.");
+            return const Center(child: Text("No student data available"));
+          }
 
-    // Check if profile is null to avoid null checks on properties
-    final profile = studentModel.profile;
-    if (profile == null) {
-      print("Error: Profile is null.");
-      return const Center(child: Text("No profile data available"));
-    }
+          // Check if profile is null to avoid null checks on properties
+          final profile = studentModel.profile;
+          // if (profile == null) {
+          //   print("Error: Profile is null.");
+          //   return const Center(child: Text("No profile data available"));
+          // }
 
           return Column(
-            crossAxisAlignment: CrossAxisAlignment.start, // Align children to the start
+            crossAxisAlignment:
+                CrossAxisAlignment.start, // Align children to the start
             children: [
               // Student Name
               Padding(
@@ -68,7 +56,7 @@ class StudentCoursesScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              
+
               // Age and Created At
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -90,7 +78,7 @@ class StudentCoursesScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              
+
               const SizedBox(height: 20),
 
               // Other Info
@@ -127,8 +115,9 @@ class StudentCoursesScreen extends StatelessWidget {
 
                     return GestureDetector(
                       onTap: () {
+                        print("Course id is : ${course.id}");
                         if (course.type == "quran") {
-                          Navigator.pushReplacement(
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
@@ -136,7 +125,7 @@ class StudentCoursesScreen extends StatelessWidget {
                             ),
                           );
                         } else {
-                          Navigator.pushReplacement(
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
@@ -192,11 +181,18 @@ class StudentCoursesScreen extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    IconButton(onPressed: () {}, icon: const Icon(Iconsax.clipboard)),
-                    IconButton(onPressed: () {
-                      final attendance = studentModel.attendances;
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> DateCalender(attendances: attendance)));
-                    }, icon: const Icon(Iconsax.calendar)),
+                    IconButton(
+                        onPressed: () {}, icon: const Icon(Iconsax.clipboard)),
+                    IconButton(
+                        onPressed: () {
+                          final attendance = studentModel.attendances;
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      DateCalender(attendances: attendance)));
+                        },
+                        icon: const Icon(Iconsax.calendar)),
                   ],
                 ),
               ),
@@ -206,15 +202,17 @@ class StudentCoursesScreen extends StatelessWidget {
               // Attendance Date Label
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  children:[ Text(
+                child: Row(children: [
+                  Text(
                     "Date:",
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(width: 250,),
+                  SizedBox(
+                    width: 250,
+                  ),
                   Text(
                     "P/A",
                     style: TextStyle(
@@ -222,10 +220,7 @@ class StudentCoursesScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  ]
-                ),
-
-                
+                ]),
               ),
 
               const SizedBox(height: 15),
@@ -236,11 +231,12 @@ class StudentCoursesScreen extends StatelessWidget {
                   itemCount: studentModel.attendances.length,
                   itemBuilder: (context, index) {
                     final attendance = studentModel.attendances[index];
-                    print("Attendance Date: ${attendance.date}, Status: ${attendance.hasAttended}");
+                    print(
+                        "Attendance Date: ${attendance.date}, Status: ${attendance.hasAttended}");
 
                     return Container(
                       height: 50,
-                      padding: const EdgeInsets.only(left: 3,right: 40),
+                      padding: const EdgeInsets.only(left: 3, right: 40),
                       margin: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
@@ -258,11 +254,18 @@ class StudentCoursesScreen extends StatelessWidget {
                             ),
                           ),
 
-                          const SizedBox(width: 60,),
+                          const SizedBox(
+                            width: 60,
+                          ),
                           attendance.hasAttended == 1
-                ? const Icon(Icons.check_box_rounded, color: Colors.green,size: 30,) // Check icon if attended
-                : const Icon(Icons.close_outlined, color: Colors.red,size: 30), // Close icon if not attended
-                          
+                              ? const Icon(
+                                  Icons.check_box_rounded,
+                                  color: Colors.green,
+                                  size: 30,
+                                ) // Check icon if attended
+                              : const Icon(Icons.close_outlined,
+                                  color: Colors.red,
+                                  size: 30), // Close icon if not attended
                         ],
                       ),
                     );
@@ -273,12 +276,7 @@ class StudentCoursesScreen extends StatelessWidget {
           );
         },
       ),
+      appBar: AppBar(),
     );
   }
 }
-
-
-
-
-
-

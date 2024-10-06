@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.text, this.func, required this.color});
+  const CustomButton({super.key, required this.text, this.func,  this.txtcolor = Colors.white});
 
   final String text;
   final void Function()? func;
-  final Color color;
+  final Color txtcolor;
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +15,12 @@ class CustomButton extends StatelessWidget {
       decoration: const BoxDecoration(),
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(color),
+          backgroundColor: MaterialStateProperty.all<Color>(txtcolor),
         ),
         onPressed: func,
         child: Text(
           text,
-          style: TextStyle(color: Colors.white,fontSize: 19),
+          style: TextStyle(color: txtcolor,fontSize: 19),
         ),
       ),
     );

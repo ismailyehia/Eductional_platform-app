@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
@@ -7,8 +7,6 @@ import 'package:quran_tdress/common/custom/rounded_container.dart';
 import 'package:quran_tdress/features/shop/class_progress_button/add_progress.dart';
 import 'package:quran_tdress/features/shop/class_progress_button/widgets/show_dialog_lesson.dart';
 import 'package:quran_tdress/features/shop/class_progress_button/widgets/view_note.dart';
-import 'package:quran_tdress/models/class_progress.dart';
-import 'package:quran_tdress/navigation_menu_teacher.dart';
 import 'package:quran_tdress/provider/classprovider/get_progress_provider.dart';
 
 class ProgressDetails extends StatefulWidget {
@@ -38,16 +36,16 @@ class _ProgressDetailsState extends State<ProgressDetails> {
     String daydate = DateFormat('yyyy-MM-dd').format(now);
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Iconsax.arrow_circle_left),
-          onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const NavigationMenuTeacher()),
-            );
-          },
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Iconsax.arrow_circle_left),
+        //   onPressed: () {
+        //     Navigator.pushReplacement(
+        //       context,
+        //       MaterialPageRoute(
+        //           builder: (context) => const NavigationMenuTeacher()),
+        //     );
+        //   },
+        // ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(3),
@@ -92,24 +90,27 @@ class _ProgressDetailsState extends State<ProgressDetails> {
           GestureDetector(
             onTap: () {
               final lessons = progressProvider.progressList
-      .map((progress) => progress.lesson?.name) // Use optional chaining to prevent null errors
-      .where((name) => name != null) // Filter out any null lesson names
-      .map((name) => name!) // Cast to non-nullable String
-      .toList();
+                  .map((progress) => progress.lesson
+                      ?.name) // Use optional chaining to prevent null errors
+                  .where((name) =>
+                      name != null) // Filter out any null lesson names
+                  .map((name) => name!) // Cast to non-nullable String
+                  .toList();
 
-  // Check if the lessons list is empty
-  if (lessons.isEmpty) {
-    print("No lessons available");
-    return; // Optionally return if there are no lessons
-  }
+              // Check if the lessons list is empty
+              if (lessons.isEmpty) {
+                print("No lessons available");
+                return; // Optionally return if there are no lessons
+              }
 
-  // Show the dialog with the list of lesson names
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return LessonDialog(lessons: lessons); // Pass the list of lesson names
-    },
-  );
+              // Show the dialog with the list of lesson names
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return LessonDialog(
+                      lessons: lessons); // Pass the list of lesson names
+                },
+              );
             },
             child: const TRoundedContainer(
               margin: EdgeInsets.only(left: 35),
@@ -144,6 +145,7 @@ class _ProgressDetailsState extends State<ProgressDetails> {
 
           GestureDetector(
             onTap: () {
+              print(" course id :${widget.courseeid}");
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -153,7 +155,6 @@ class _ProgressDetailsState extends State<ProgressDetails> {
               );
             },
             child: const TRoundedContainer(
-              // margin: const EdgeInsets.only(left: 35),
               width: 400,
               height: 60,
               backgroundColor: Colors.black,
@@ -231,7 +232,7 @@ class _ProgressDetailsState extends State<ProgressDetails> {
                         flex: 3,
                         child: Text(
                           progress.lesson != null
-                              ? "Lesson: ${progress.lesson!.name}"
+                              ? " ${progress.lesson!.name}"
                               : "No Lesson",
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),

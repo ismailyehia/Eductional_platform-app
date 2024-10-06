@@ -50,3 +50,58 @@
 //     );
 //   }
 // }
+
+
+//important notes for implementions
+  
+  //check box :
+   // Row(
+              //   children: [
+              //     Checkbox(
+              //       value: true,
+              //       onChanged: (value) {},
+              //     ),
+              //     const Text(TTexts.rememberMe),
+              //   ],
+              // ),
+
+
+
+
+
+
+//advanced textform field:
+
+
+
+
+
+                        // TextFormField(
+          //   controller: passwordcontroller,
+          //   // keyboardType: password,
+          //   decoration: const InputDecoration(
+          //     prefixIcon: Icon(Iconsax.password_check),
+          //     labelText: TTexts.password,
+          //     suffixIcon: Icon(Iconsax.eye_slash),
+          //   ),
+          // ),
+
+
+
+
+
+
+
+
+
+
+            // TextFormField(
+          //   controller: emailcontroller,
+          //   decoration: const InputDecoration(
+          //     prefixIcon: Icon(Iconsax.direct_right),
+          //     labelText: TTexts.email,
+          //   ),
+          // ),
+
+
+          

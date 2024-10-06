@@ -25,6 +25,7 @@ TextEditingController passwordcontroller = TextEditingController();
 
 class _TLoinFormState extends State<TLoinForm> {
   late String? errorMsg;
+  bool _isPasswordVisible = false; 
 
   //Login Function
 
@@ -58,15 +59,6 @@ class _TLoinFormState extends State<TLoinForm> {
         prefs.setString('token', token);
         print("user Token is $token");
         prefs.setInt('role_id', roleId);
-
-        // Role-based navigation
-        // if (roleId == 1) {
-        //   // Navigate to Admin page
-        //   Navigator.pushReplacement(
-        //     context,
-        //     MaterialPageRoute(builder: (context) => AdminPage()), // Your Admin Page
-        //   );
-        // } else
 
         if (roleId == 2) {
           // Navigate to Supervisor page
@@ -125,82 +117,32 @@ class _TLoinFormState extends State<TLoinForm> {
         SnackBar(
           content: Text("An error occurred: $e"),
           backgroundColor: Colors.red,
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
         ),
       );
     }
   }
 
-  // Future<void> login(String email, String password) async {
-  //   try {
-  //     Map<String, String> headers = {
-  //     "Accept": "aapplication/json",
-  //     "Content-Type": "application/json"
-  //     };
-  //     Map<String, String> body = {
-  //       "email": email,
-  //       "password": password,
-  //     };
-  //     final response = await http.post(
-  //       Uri.parse("https://quran.smartwork.com.tr/api/login"),
-  //       headers: headers,
-  //       body: jsonEncode(body),
-  //     );
-
-  //     print("Response status code: ${response.statusCode}");
-  //     print("Response body: ${response.body}");
-
-  //     if (response.statusCode == 200) {
-  //       final dynamic tokenWithPrefix = response.body;
-  //       final String token =
-  //           tokenWithPrefix.substring(tokenWithPrefix.indexOf('|') + 1);
-
-  //       final prefs = await SharedPreferences.getInstance();
-  //       prefs.setString('token', token);
-
-  //       Navigator.pushReplacement(
-  //         context,
-  //         MaterialPageRoute(builder: (context) => NavigationMenu()),
-  //       );
-  //     } else {
-  //       // Handle non-200 status code
-  //       setState(() {
-  //         errorMsg = "Invalid Email or Password";
-  //       });
-
-  //         ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(
-  //         content: Text("Invalid Email or Password"),
-  //         backgroundColor: Colors.red, // You can customize the color here
-  //         duration: Duration(seconds: 3),
-  //       ),
-  //     );
-  //     }
-  //   } catch (e) {
-  //     setState(() {
-  //       errorMsg = "An error occurred: $e";
-  //     });
-  //   }
-  // }
-
-  ///
-  ///
-
   @override
   Widget build(BuildContext context) {
+
     return Form(
         child: Padding(
       padding: const EdgeInsets.symmetric(vertical: TSizes.spaceBtwSections),
       child: Column(
         children: [
           //email
+
           TextFormField(
-            controller: emailcontroller,
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Iconsax.direct_right),
-              labelText: TTexts.email,
-            ),
-          ),
+              controller: emailcontroller,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    borderSide: BorderSide(width: 1)),
+                prefixIcon: Icon(Iconsax.direct_right),
+                labelText: TTexts.email,
+                // contentPadding: EdgeInsets.symmetric(vertical: 17, horizontal: 12),
+              )),
 
           const SizedBox(
             height: TSizes.spaceBtwInputFields,
@@ -209,38 +151,43 @@ class _TLoinFormState extends State<TLoinForm> {
           //password
 
           TextFormField(
-            controller: passwordcontroller,
-            // keyboardType: password,
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Iconsax.password_check),
-              labelText: TTexts.password,
-              suffixIcon: Icon(Iconsax.eye_slash),
-            ),
-          ),
+              controller: passwordcontroller,
+              obscureText: !_isPasswordVisible,
+              decoration:  InputDecoration(
+                border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                  borderSide: BorderSide(width: 1),
+                ),
+                prefixIcon: const Icon(Iconsax.password_check),
+                labelText: TTexts.password,
+                suffixIcon:    IconButton( icon: Icon(_isPasswordVisible ? Iconsax.eye : Iconsax.eye_slash ),
+                onPressed: (){
+
+                  setState(() {
+                      _isPasswordVisible = !_isPasswordVisible; 
+                  });
+
+                }
+
+                ),
+              )),
 
           //
           const SizedBox(
             height: TSizes.spaceBtwInputFields / 2,
           ),
-          //Remmber me & Forget password
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  Checkbox(
-                    value: true,
-                    onChanged: (value) {},
-                  ),
-                  const Text(TTexts.rememberMe),
-                ],
+              const SizedBox(
+                width: 200,
               ),
 
               //forget password
 
               TextButton(
-                  onPressed: () => Get.to(() => ForgetPassword()),
+                  onPressed: () => Get.to(() => const ForgetPassword()),
                   child: const Text(TTexts.forgetPassword)),
             ],
           ),
@@ -257,27 +204,8 @@ class _TLoinFormState extends State<TLoinForm> {
               final password = passwordcontroller.text;
               login(email, password);
             },
-            color: Colors.purple,
+            txtcolor: Colors.purple,
           ),
-
-          // SizedBox(
-          //     width: double.infinity,
-          //     child: ElevatedButton(
-          //       onPressed: () => Get.to(() => const NavigationMenu()),
-          //       child: const Text(TTexts.signIn),
-          //     )),
-          // const SizedBox(
-          //   height: TSizes.spaceBtwItems,
-          // ),
-
-          // CustomButton(text: "Create Account",func: () => Get.to(() => const SignUpScreen()),color: Colors.black, ),
-          //Create Accuont Button
-          // SizedBox(
-          //     width: double.infinity,
-          //     child: OutlinedButton(
-          //       onPressed: () => Get.to(() => const SignUpScreen()),
-          //       child: const Text(TTexts.createAccount),
-          //     )),
         ],
       ),
     ));

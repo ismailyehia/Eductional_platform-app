@@ -309,7 +309,7 @@ class _TSignupformState extends State<TSignupform> {
 
           ///Sign up button
           
-          CustomButton(text: "Create  Account",func: (){},color: Colors.purple, ),
+          CustomButton(text: "Create  Account",func: (){},txtcolor: Colors.purple, ),
 
 
 

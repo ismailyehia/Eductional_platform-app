@@ -1,12 +1,9 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:quran_tdress/common/custom/rounded_container.dart';
 import 'package:quran_tdress/models/student_attendence.dart';
-import 'package:quran_tdress/navigation_menu_teacher.dart';
 import 'package:quran_tdress/provider/classprovider/attendence_provider.dart';
 import 'package:quran_tdress/provider/classprovider/class_students_provider.dart';
 
@@ -88,11 +85,6 @@ class _AttendenceButtonState extends State<AttendenceButton> {
 
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () => Get.offAll(() => const NavigationMenuTeacher()),
-              icon: const Icon(CupertinoIcons.clear)),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(4),
@@ -313,7 +305,7 @@ class _AttendenceButtonState extends State<AttendenceButton> {
           child: CircleAvatar(
             radius: 17,
             child: Icon(
-              isPresent ? Icons.check_circle : Icons.check_circle,
+              isPresent ? Icons.check: Icons.check_circle,
               color: isPresent ? Colors.green : Colors.grey,
             ),
           ),
@@ -347,10 +339,10 @@ class _AttendenceButtonState extends State<AttendenceButton> {
                         child: const TRoundedContainer(
             width: 400,
             height: 60,
-            backgroundColor: Colors.black,
+            backgroundColor: Color(0xFF7F56D9),
             padding: EdgeInsets.only(
               top: 10,
-              left: 150,
+              left: 170,
             ),
             child: Text("Save",
                 style: TextStyle(

@@ -131,6 +131,7 @@ class _ProgressDetailsState extends State<ProgressDetailsQuran> {
 
           GestureDetector(
             onTap: () {
+              print(" course id :${widget.courseeeid}");
                   Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(

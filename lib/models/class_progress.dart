@@ -3,11 +3,13 @@ class Progressget {
   final int courseId;
   final String date;
   final String note;
-  final Lesson? lesson; 
+  final int score;
+  final Lesson? lesson;
   final Surah? surah;
-  final int? from; 
-  final int? to; 
+  final int? from;
+  final int? to;
   Progressget({
+    required this.score,
     required this.courseId,
     required this.id,
     required this.date,
@@ -24,6 +26,7 @@ class Progressget {
       courseId: json['course_id'] as int,
       date: json['date'] as String,
       note: json['note'] as String,
+      score: json['score'] as int,
       lesson: json['lesson'] != null
           ? Lesson.fromJson(json['lesson'])
           : null, // Handle nullable lesson
@@ -69,6 +72,5 @@ class Surah {
     );
   }
 }
-
 
 

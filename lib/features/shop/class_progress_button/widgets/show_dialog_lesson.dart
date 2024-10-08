@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-
 class LessonDialog extends StatelessWidget {
-  LessonDialog({required this.lessons});
+  final List<String> lessons;
+  final Function(String) onLessonSelected; // Add this callback
 
-    final List<String> lessons;
+  LessonDialog({required this.lessons, required this.onLessonSelected});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Lessons'),
+      title: const Text('Select Lesson'),
       content: SizedBox(
         width: double.maxFinite,
         child: ListView.builder(
@@ -18,22 +18,13 @@ class LessonDialog extends StatelessWidget {
             return ListTile(
               title: Text(lessons[index]),
               onTap: () {
-                // You can handle onTap logic here if necessary
-                Navigator.pop(
-                    context); // Dismiss the dialog when a lesson is selected
+                onLessonSelected(lessons[index]); // Call the callback
+                Navigator.of(context).pop(); // Close the dialog
               },
             );
           },
         ),
       ),
-      actions: [
-        TextButton(
-          child: const Text('Close'),
-          onPressed: () {
-            Navigator.pop(context); // Close the dialog
-          },
-        ),
-      ],
     );
   }
 }

@@ -37,12 +37,12 @@ class AddProgressProvider extends ChangeNotifier {
     required String? date,
     required int? from,
     required int? to,
+    required int? score,
   }) async {
     isLoading = true;
     notifyListeners();
 
-    final url = Uri.parse(
-        'https://quran.smartwork.com.tr/api/classRooms/1/courses/1/progresses');
+    final url = Uri.parse('https://quran.smartwork.com.tr/api/students/5/courses/1/progresses');
 
     // Construct the body
     final body = jsonEncode({
@@ -50,6 +50,7 @@ class AddProgressProvider extends ChangeNotifier {
       "lesson_id": lessonId,
       "sura_id": suraId,
       "note": note,
+      "score":score,
       "class_room_id": "1", 
       "date": date,
       "from": from,

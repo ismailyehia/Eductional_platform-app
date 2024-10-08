@@ -33,7 +33,7 @@ class Studentsprofileshow extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.only(left: 16, top: 14),
+        padding: const EdgeInsets.only(left: 16, top: 14),
         child: Column(
           children: [
             Row(children: [

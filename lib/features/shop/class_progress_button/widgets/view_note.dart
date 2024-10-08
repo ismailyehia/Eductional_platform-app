@@ -1,12 +1,15 @@
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:quran_tdress/common/custom/rounded_container.dart';
 import 'package:quran_tdress/features/shop/class_progress_button/progress_details.dart';
+import 'package:quran_tdress/features/shop/class_progress_button/widgets/show_dialog_lesson.dart';
 import 'package:quran_tdress/provider/classprovider/get_progress_provider.dart';
 
-class ViewNoteScreen extends StatelessWidget {
+class ViewNoteScreen extends StatefulWidget {
   ViewNoteScreen(
       {super.key,
       required this.note,
@@ -16,27 +19,48 @@ class ViewNoteScreen extends StatelessWidget {
     dateController.text = date;
   }
 
-  final TextEditingController dateController = TextEditingController();
-  final TextEditingController noteController = TextEditingController();
   final String note;
   final String date;
+
+    final TextEditingController dateController = TextEditingController();
+
+  final TextEditingController noteController = TextEditingController();
+  final TextEditingController scoreController = TextEditingController();
 
   final int courseid;
 
   @override
+  State<ViewNoteScreen> createState() => _ViewNoteScreenState();
+}
+
+class _ViewNoteScreenState extends State<ViewNoteScreen> {
+    String? selectedLesson;
+
+
+  @override
   Widget build(BuildContext context) {
+    final progressProvider = Provider.of<ProgressProvider>(context );
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+      ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
+            Text('Update Your data',style: TextStyle(
+              // fontWeight: FontWeight.bold,
+              fontSize: 24,
+            ),),
+
+            SizedBox(height: 12,),
             const Text(
               "Date",
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
             TextFormField(
-              controller: dateController, // User can edit the date
+              controller: widget.dateController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -48,7 +72,91 @@ class ViewNoteScreen extends StatelessWidget {
               ),
             ),
 
-            SizedBox(
+            const SizedBox(height: 15,),
+
+            
+            GestureDetector(
+              onTap: () {
+                final lessons = progressProvider.progressList
+                    .map((progress) => progress.lesson?.name)
+                    .where((name) => name != null)
+                    .map((name) => name!)
+                    .toList();
+        
+                if (lessons.isEmpty) {
+                  print("No lessons available");
+                  return;
+                }
+        
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return LessonDialog(
+                      lessons: lessons,
+                      onLessonSelected: (selectedLesson) {
+                        setState(() {
+                          this.selectedLesson = selectedLesson;
+                        });
+                      },
+                    );
+                  },
+                );
+              },
+              child: TRoundedContainer(
+                margin: const EdgeInsets.only(left: 8),
+                width: 360,
+                height: 60,
+                backgroundColor: const Color(0xFF7f56dD),
+                padding: const EdgeInsets.only(
+                  top: 5,
+                  left: 120,
+                ),
+                child: Row(children: [
+                  Text(selectedLesson ?? "Lesson",
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)),
+                  const SizedBox(
+                    width: 70,
+                  ),
+                  const Icon(
+                    Icons.arrow_drop_down_outlined,
+                    size: 30,
+                    color: Colors.white,
+                  )
+                ]),
+              ),
+            ),
+
+
+            const SizedBox(height: 7,),
+
+
+            const Text(
+              "Score",
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 4),
+            TextFormField(
+              controller: widget.scoreController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    borderSide: BorderSide(width: 1)),
+                labelText: "Enter Score untill 10",
+                prefixIcon: Icon(Iconsax.calendar),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 17, horizontal: 12),
+              ),
+            ),
+
+
+
+
+
+
+            const SizedBox(
               height: 7,
             ),
             const Text(
@@ -66,7 +174,7 @@ class ViewNoteScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
-                  controller: noteController,
+                  controller: widget.noteController,
                   maxLines: null,
                   expands: true,
                   decoration: const InputDecoration(
@@ -82,32 +190,33 @@ class ViewNoteScreen extends StatelessWidget {
 
             // Save Button
             TRoundedContainer(
+              margin: const EdgeInsets.only(left: 10),
               width: 300,
               height: 60,
-              backgroundColor: Color(0xFF7F56D9),
+              backgroundColor: const Color(0xFF7F56D9),
               padding: const EdgeInsets.only(
                 top: 5,
                 left: 130,
               ),
               child: InkWell(
                 onTap: () {
-                  String updatedNote = noteController.text;
+                  String updatedNote = widget.noteController.text;
 
-                  String updatedDate = dateController.text;
-                  print(" Course id is :$courseid");
+                  String updatedDate = widget.dateController.text;
+                  print(" Course id is :${widget.courseid}");
 
                   Provider.of<ProgressProvider>(context, listen: false)
                       .updateProgressNote(
                         context: context,
                     updatedNote: updatedNote,
-                    courseId: courseid,
+                    courseId: widget.courseid,
                     date: updatedDate,
                   ).then((_) {
     // Navigate back to ProgressDetails and reload the screen
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ProgressDetails(courseeid: courseid),
+        builder: (context) => ProgressDetails(courseeid: widget.courseid),
       ),
     );
   });
@@ -130,6 +239,7 @@ class ViewNoteScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             TRoundedContainer(
+              margin: EdgeInsets.only(left: 10),
               showBorder: true,
               borderColor: const Color(0xFF475467),
               width: 300,
@@ -152,7 +262,7 @@ class ViewNoteScreen extends StatelessWidget {
                     Text(
                       "Close",
                       style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),

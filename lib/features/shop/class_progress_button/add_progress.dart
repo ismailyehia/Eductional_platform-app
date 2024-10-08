@@ -151,19 +151,19 @@ class AddProgressScreen extends StatelessWidget {
                       // );
                       //
                       print(" course id is $courseid");
-                      provider.addProgress(
-                        courseId: courseid,
-                        lessonId: int.tryParse(lessonnumber.text) ?? 1,
-                        suraId:
-                            (from.text.isEmpty || to.text.isEmpty) ? null : 1,
-                        note: note.text,
-                        date: dateController.text,
-                        from: from.text.isNotEmpty
-                            ? int.tryParse(from.text)
-                            : null, // Nullable
-                        to: to.text.isNotEmpty ? int.tryParse(to.text) : null,
-                        context: context,
-                      );
+                      // provider.addProgress(
+                      //   courseId: courseid,
+                      //   lessonId: int.tryParse(lessonnumber.text) ?? 1,
+                      //   suraId:
+                      //       (from.text.isEmpty || to.text.isEmpty) ? null : 1,
+                      //   note: note.text,
+                      //   date: dateController.text,
+                      //   from: from.text.isNotEmpty
+                      //       ? int.tryParse(from.text)
+                      //       : null, // Nullable
+                      //   to: to.text.isNotEmpty ? int.tryParse(to.text) : null,
+                      //   context: context,
+                      // );
                     },
                     child: const Row(
                       children: [
@@ -219,3 +219,5 @@ class AddProgressScreen extends StatelessWidget {
     );
   }
 }
+
+

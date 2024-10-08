@@ -4,17 +4,17 @@ import 'package:http/http.dart' as http;
 import 'package:quran_tdress/models/class_students_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-
 class ClassRoomProvider extends ChangeNotifier {
   bool isLoading = false;
   ClassRoom? classRoom;
+  List<Student> filterdstudents = [];
 
   Future<void> fetchClassRoomData(int classRoomId) async {
     isLoading = true;
     notifyListeners();
 
-    final url = Uri.parse('https://quran.smartwork.com.tr/api/teachers/classes/$classRoomId');
+    final url = Uri.parse(
+        'https://quran.smartwork.com.tr/api/teachers/classes/$classRoomId');
 
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -36,6 +36,7 @@ class ClassRoomProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
         classRoom = ClassRoom.fromJson(data);
+        filterdstudents = classRoom?.students ?? [];
         print("Fetched class room data: ${classRoom?.name}");
       } else {
         print("Failed to fetch class room data: ${response.statusCode}");
@@ -48,11 +49,14 @@ class ClassRoomProvider extends ChangeNotifier {
     }
   }
 
-
-
-
-
+  void updatelist(String val) {
+    if (val.isEmpty) {
+      filterdstudents = classRoom?.students ?? [];
+    } else {
+      filterdstudents = classRoom!.students.where((student) {
+        return student.name.toLowerCase().contains(val.toLowerCase());
+      }).toList();
+    }
+    notifyListeners();
+  }
 }
-
-
-

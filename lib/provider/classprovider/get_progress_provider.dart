@@ -17,7 +17,7 @@ Future<void> fetchProgress() async {
   isLoading = true;
   notifyListeners();
 
-  final url = Uri.parse('https://quran.smartwork.com.tr/api/classRooms/1/courses/1/progresses');
+  final url = Uri.parse('https://quran.smartwork.com.tr/api/students/5/courses/1/progresses');
 
   try {
     final prefs = await SharedPreferences.getInstance();
@@ -40,8 +40,12 @@ Future<void> fetchProgress() async {
     print("Response body: ${response.body}");
 
     if (response.statusCode == 200) {
-      final List<dynamic> data = json.decode(response.body); 
+      // final List<dynamic> data = json.decode(response.body); 
       
+
+        final Map<String, dynamic> responseData = json.decode(response.body);
+      
+      final List<dynamic> data = responseData['progress'];
 
       
       if (data.isEmpty) {

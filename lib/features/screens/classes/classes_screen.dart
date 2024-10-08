@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:quran_tdress/common/custom/rounded_container.dart';
 import 'package:quran_tdress/features/authentication/login/login_teacher.dart';
 import 'package:quran_tdress/provider/classprovider/class_provider.dart';
@@ -51,12 +52,6 @@ class ClassesScreen extends StatelessWidget {
                   title: const Text("Dark/light mode"),
                   leading: const Icon(Icons.help_center),
                   onTap: () {
-                    // Navigator.pushReplacement(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => DarkModeScreen(),
-                    //   ),
-                    // );
                   }),
               ListTile(
                   title: const Text("Logout"),
@@ -86,46 +81,69 @@ class ClassesScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Teacher Classes'),
       ),
-      body: Consumer<ClassStudentsProvider>(
-        builder: (context, classProvider, child) {
-          if (classProvider.isLoading) {
-            // Show a loading spinner if data is still being fetched
-            return const Center(child: CircularProgressIndicator());
-          }
+      body: Stack(
 
-          if (classProvider.classes.isEmpty) {
-            // Show a message if no classes are available
-            return const Center(child: Text('No classes available'));
-          }
-
-          return ListView.builder(
-            itemCount: classProvider.classes.length,
-            itemBuilder: (context, index) {
-              final classStudent = classProvider.classes[index];
-              return Column(
-                children: [
-
-                  const SizedBox(height: 40,),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,MaterialPageRoute( builder: (context) => ProgressTeacher(classname: classStudent.name ,classid: classStudent.id)),
-          );},
-                    child: TRoundedContainer(
-                                    width: 350,
-                                    height: 60,
-                                    padding: const EdgeInsets.only(top: 7,left: 130),
-                                    backgroundColor: const Color(0xFF7F56D9),
-                                    child: Text(classStudent.name,style: const TextStyle(color: Colors.white, fontSize: 28,fontWeight: FontWeight.bold),),
-                                  ),
-                  ),
-
-              const SizedBox(height: 15,),
-
-                ],
-              );
-            },
-          );
-        },
+        children:[
+          Positioned(
+            bottom: -190,
+            right: 210,
+ child: Container(
+        width: MediaQuery.of(context).size.width, // Set width to screen size
+        child: Opacity(
+      opacity: 0.7, // Set the desired opacity level (0.0 to 1.0)
+      child: Image.asset(
+        "assets/images/content/background1.png",
+        fit: BoxFit.cover, // Ensures the image covers the available space
+      ),
+    ),
+      ),
+            ),
+          Consumer<ClassStudentsProvider>(
+          builder: (context, classProvider, child) {
+            if (classProvider.isLoading) {
+              // Show a loading spinner if data is still being fetched
+              return const Center(child: CircularProgressIndicator());
+            }
+        
+            if (classProvider.classes.isEmpty) {
+              // Show a message if no classes are available
+              return const Center(child: Text('No classes available'));
+            }
+        
+            return ListView.builder(
+              itemCount: classProvider.classes.length,
+              itemBuilder: (context, index) {
+                final classStudent = classProvider.classes[index];
+                return Column(
+                  children: [
+                    
+        
+                    const SizedBox(height: 40,),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,MaterialPageRoute( builder: (context) => ProgressTeacher(classname: classStudent.name ,classid: classStudent.id)),
+            );},
+                      child: TRoundedContainer(
+                                        borderwidth: 3,
+                                        showBorder: true,
+                                        borderColor: Color(0xFF7F56D9),
+                                      width: 350,
+                                      height: 60,
+                                      padding: const EdgeInsets.only(top: 7,left: 130),
+                                      backgroundColor:  Colors.white,
+                                      child: Text(classStudent.name,style: const TextStyle(color: Colors.black, fontSize: 28,fontWeight: FontWeight.bold),),
+                                    ),
+                    ),
+        
+                const SizedBox(height: 10,),
+        
+                  ],
+                );
+              },
+            );
+          },
+        ),
+        ]
       ),
     );
   }

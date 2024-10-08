@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quran_tdress/common/custom/rounded_container.dart';
@@ -26,7 +25,6 @@ class _ProgressTeacherState extends State<ProgressTeacher> {
   @override
   void initState() {
     super.initState();
-    // Fetch progress data when the screen initializes
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<ClassRoomProvider>(context, listen: false)
           .fetchClassRoomData(widget.classid);
@@ -61,41 +59,27 @@ class _ProgressTeacherState extends State<ProgressTeacher> {
                       builder: (context) => AttendenceButton(
                             classnamee: widget.classname,
                             classId: widget.classid,
-                          )), // Your Supervisor Page
+                          )),
                 );
               },
               child: const TRoundedContainer(
-                borderwidth: 3,
-                showBorder: true,
-                borderColor: Color(0xFF7F56D9),
+                // borderwidth: 3,
+                // showBorder: true,
                 width: 380,
                 height: 55,
                 radius: 12,
                 padding: EdgeInsets.only(top: 7, left: 130),
-                backgroundColor: Colors.white,
+                backgroundColor: Color(0xFF7F56D9),
                 child: Text(
                   "Attendence",
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 28,
+                      fontWeight: FontWeight.bold
                   ),
                 ),
               ),
             ),
-            // CustomButton(
-            //     text: "Attendence",
-
-            //     txtcolor: Colors.white,
-            //     func: () {
-            //       Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //             builder: (context) => AttendenceButton(
-            //                   classnamee: widget.classname,
-            //                   classId: widget.classid,
-            //                 )), // Your Supervisor Page
-            //       );
-            //     }),
             const SizedBox(
               height: 20,
             ),
@@ -112,42 +96,31 @@ class _ProgressTeacherState extends State<ProgressTeacher> {
                 );
               },
               child: const TRoundedContainer(
-                showBorder: true,
-                borderwidth: 3,
-                borderColor: Color(0xFF7F56D9),
+                // borderwidth: 3,
+                // showBorder: true,
                 width: 380,
                 height: 55,
                 radius: 12,
-                padding: EdgeInsets.only(top: 7, left: 110),
-                backgroundColor: Colors.white,
+                padding: EdgeInsets.only(top: 7, left: 100),
+                backgroundColor: Color(0xFF7F56D9),
                 child: Text(
                   "Class Progress",
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 28,
+                    fontWeight: FontWeight.bold
                   ),
                 ),
               ),
             ),
 
-            // CustomButton(
-            //   text: "Class Progress",
-            //   txtcolor: const Color(0xFF7F56D9),
-            //   func: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //           builder: (context) => ClassProgress(
-            //                 classnameee: widget.classname,
-            //                 classId: widget.classid,
-            //               )),
-            //     );
-            //   },
-            // ),
-
+          
             const SizedBox(
               height: 30,
             ),
+
+            const Divider(thickness: 1,),
+            
             Text("Students in this Class",
                 style: Theme.of(context).textTheme.headlineMedium),
 
@@ -155,52 +128,36 @@ class _ProgressTeacherState extends State<ProgressTeacher> {
               height: 15,
             ),
 
-             TextFormField(
-              // maxLines: 1,
-
-              decoration:  InputDecoration(
-            border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-                borderSide: BorderSide(width: 1)),
-
-            labelText: "Search Students",
-            
-            contentPadding: EdgeInsets.symmetric(vertical: 17 , horizontal: 12),
-            suffixIcon: IconButton(onPressed: (){}, icon: const Icon(Icons.search),)
-          )),
-
-            // Padding(
-            //   padding: const EdgeInsets.all(10.0),
-            //   child: TextField(
-            //     controller: searchcontroller,
-                
-            //     decoration: InputDecoration(
-            //       labelText: 'Search Products',
-            //       suffixIcon: IconButton(
-            //         icon: const Icon(Icons.search),
-            //         onPressed: () {},
-            //       ),
-            //     ),
-            //   ),
-            // ),
-
+            TextField(
+                controller: searchcontroller,
+                onChanged: (value) {
+                  classRoomProvider.updatelist(value);
+                },
+                decoration: InputDecoration(
+                    border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                        borderSide: BorderSide(width: 1)),
+                    labelText: "Search Students",
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 17, horizontal: 12),
+                    suffixIcon: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.search),
+                    ))),
             const SizedBox(
               height: 15,
             ),
 
-            // Displaying students
+            //
             Expanded(
               child: classRoomProvider.isLoading
                   ? const Center(child: CircularProgressIndicator())
-                  : classRoomProvider.classRoom == null ||
-                          classRoomProvider.classRoom!.students.isEmpty
+                  :  classRoomProvider.classRoom == null || classRoomProvider.filterdstudents.isEmpty
                       ? const Center(child: Text("No students found"))
                       : ListView.builder(
-                          itemCount:
-                              classRoomProvider.classRoom!.students.length,
+                          itemCount:classRoomProvider.filterdstudents.length,
                           itemBuilder: (context, index) {
-                            final student =
-                                classRoomProvider.classRoom!.students[index];
+                            final student = classRoomProvider.filterdstudents[index];
                             return GestureDetector(
                               onTap: () {
                                 print(" Student id is :${student.id}");
@@ -241,3 +198,6 @@ class _ProgressTeacherState extends State<ProgressTeacher> {
     );
   }
 }
+
+
+

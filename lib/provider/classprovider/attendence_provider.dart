@@ -1,12 +1,10 @@
-// providers/attendance_provider.dart
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:quran_tdress/common/custom/custom_snackbar.dart';
-import 'package:quran_tdress/features/screens/classes/classes_screen.dart';
-
 import 'package:quran_tdress/models/student_attendence.dart';
+import 'package:quran_tdress/navigation_menu_teacher.dart';
 import 'package:shared_preferences/shared_preferences.dart'; 
 
 
@@ -44,7 +42,7 @@ class AttendanceProvider with ChangeNotifier {
       ScaffoldMessenger.of(context).showSnackBar(customSnackBar("Progress added successfully!"));
         Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => const ClassesScreen()), 
+    MaterialPageRoute(builder: (context) => const NavigationMenuTeacher()), 
   );
 
     } else {

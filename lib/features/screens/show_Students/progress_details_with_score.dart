@@ -3,27 +3,27 @@ import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:quran_tdress/common/custom/rounded_container.dart';
+import 'package:quran_tdress/features/screens/show_Students/view_note_student.dart';
 import 'package:quran_tdress/features/shop/class_progress_button/widgets/show_dialog_lesson.dart';
-import 'package:quran_tdress/features/shop/class_progress_button/widgets/view_note.dart';
 import 'package:quran_tdress/provider/classprovider/add_progress_provider.dart';
 import 'package:quran_tdress/provider/classprovider/get_progress_provider.dart';
 
-class ProgressDetails extends StatefulWidget {
-  const ProgressDetails({super.key, required this.courseeid, required this.classroomid});
+class ProgressDetailsScore extends StatefulWidget {
+  const ProgressDetailsScore({super.key, required this.courseeid, required this.studentid});
 
   final int courseeid;
-  final int classroomid;
+  final int studentid;
 
   @override
-  State<ProgressDetails> createState() => _ProgressDetailsState();
+  State<ProgressDetailsScore> createState() => _ProgressDetailsState();
 }
 
-class _ProgressDetailsState extends State<ProgressDetails> {
+class _ProgressDetailsState extends State<ProgressDetailsScore> {
   void initState() {
     super.initState();
     // Fetch progress data when the screen initializes
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<ProgressProvider>(context, listen: false).fetchProgress(widget.classroomid);
+      Provider.of<ProgressProvider>(context, listen: false).fetchstudentProgress(widget.studentid);
     });
   }
 
@@ -157,8 +157,23 @@ class _ProgressDetailsState extends State<ProgressDetails> {
               height: 13,
             ),
 
-            
-
+            const Text(
+              "Score",
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 4),
+            TextFormField(
+              controller: scorecontroller,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    borderSide: BorderSide(width: 1)),
+                labelText: "Enter Score untill 10",
+                prefixIcon: Icon(Iconsax.calendar),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 17, horizontal: 12),
+              ),
+            ),
             const SizedBox(
               height: 8,
             ),
@@ -191,8 +206,9 @@ class _ProgressDetailsState extends State<ProgressDetails> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         controller: notecontroller,
-                        maxLines: null,
-                        expands: true,
+                        maxLines: null, 
+                        expands:
+                            true, 
                         decoration: const InputDecoration(
                           hintText: "Write Note here",
                           border: InputBorder.none, // Remove underline
@@ -208,68 +224,70 @@ class _ProgressDetailsState extends State<ProgressDetails> {
             ),
 
             Consumer<AddProgressProvider>(
-              builder: (context, progressProvider, child) {
-                return GestureDetector(
-                  onTap: () {
-                    print(" course id :${widget.courseeid}");
-                    progressProvider.addProgress(
-                      classroomid: widget.classroomid,
-                      score: scorecontroller.text.isNotEmpty
-                          ? int.tryParse(scorecontroller.text)
-                          : null,
-                      courseId: widget.courseeid,
-                      lessonId: int.tryParse(lessoncontroller.text) ?? 1,
-                      suraId: (from.text.isEmpty || to.text.isEmpty) ? null : 1,
-                      note: notecontroller.text,
-                      date: datecontroller.text,
-                      from: from.text.isNotEmpty
-                          ? int.tryParse(from.text)
-                          : null, // Nullable
-                      to: to.text.isNotEmpty ? int.tryParse(to.text) : null,
-                      context: context,
-                    );
-                    TRoundedContainer(
-                      width: 300,
-                      height: 60,
-                      backgroundColor: const Color(0xFF7F56D9),
-                      padding: const EdgeInsets.only(
-                        top: 5,
-                        left: 160,
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          // final provider =Provider.of<AddProgressProvider>(context);
-                          // print(" course id is ${widget.courseeid}");
-                        },
-                        child: const Row(
-                          children: [
-                            Text(
-                              "Save",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                  child: const TRoundedContainer(
-                    width: 400,
+              builder: ( context, progressProvider, child) { 
+
+              
+              return GestureDetector(
+                onTap: () {
+                  print(" course id :${widget.courseeid}");
+                  progressProvider.addstudentProgress(
+                    studentid: widget.studentid,
+                          score: scorecontroller.text.isNotEmpty ? int.tryParse(scorecontroller.text) :  null,
+                          courseId: widget.courseeid,
+                          lessonId: int.tryParse(lessoncontroller.text) ?? 1,
+                          suraId:
+                              (from.text.isEmpty || to.text.isEmpty) ? null : 1,
+                          note: notecontroller.text,
+                          date: datecontroller.text,
+                          from: from.text.isNotEmpty
+                              ? int.tryParse(from.text)
+                              : null, // Nullable
+                          to: to.text.isNotEmpty ? int.tryParse(to.text) : null,
+                          context: context,
+                        );
+                  TRoundedContainer(
+                    width: 300,
                     height: 60,
-                    backgroundColor: Color(0xFF662549),
-                    padding: EdgeInsets.only(
-                      top: 15,
-                      left: 140,
+                    backgroundColor: const Color(0xFF7F56D9),
+                    padding: const EdgeInsets.only(
+                      top: 5,
+                      left: 160,
                     ),
-                    child: Text("Add Progress",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)),
+                    child: GestureDetector(
+                      onTap: () {
+                        // final provider =Provider.of<AddProgressProvider>(context);
+                        // print(" course id is ${widget.courseeid}");
+                        
+                      },
+                      child: const Row(
+                        children: [
+                          Text(
+                            "Save",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                child: const TRoundedContainer(
+                  width: 400,
+                  height: 60,
+                  backgroundColor: Color(0xFF662549),
+                  padding: EdgeInsets.only(
+                    top: 15,
+                    left: 140,
                   ),
-                );
+                  child: Text("Add Progress",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)),
+                ),
+              );
               },
             ),
 
@@ -362,13 +380,12 @@ class _ProgressDetailsState extends State<ProgressDetails> {
                             IconButton(
                                 onPressed: () {
                                   print("Progress Id : ${progress.id}");
-                                  print(
-                                      "Score for progress ${progress.id}: ${progress.score}");
+                                  print("Score for progress ${progress.id}: ${progress.score}");
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => ViewNoteScreen(
-                                              classid: widget.classroomid,
+                                        builder: (context) => ViewNoteScreenStudent(
+                                          studentId: widget.studentid,
                                               progressid: progress.id,
                                               note: progress.note,
                                               score: progress.score,
@@ -390,3 +407,5 @@ class _ProgressDetailsState extends State<ProgressDetails> {
     );
   }
 }
+
+

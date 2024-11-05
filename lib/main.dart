@@ -13,6 +13,7 @@ import 'package:quran_tdress/provider/classprovider/get_progress_provider.dart';
 import 'package:quran_tdress/provider/classprovider/surah_provider.dart';
 import 'package:quran_tdress/provider/studentprovider/student_courses_provider.dart';
 import 'package:quran_tdress/provider/studentprovider/student_provider.dart';
+import 'package:quran_tdress/provider/students_app_provider/student_profile_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -28,6 +29,8 @@ void main() {
           ChangeNotifierProvider(create: (_) => ClassRoomProvider()),
           ChangeNotifierProvider(create: (_) => StudentsProvider()),
           ChangeNotifierProvider(create: (_) => AttendanceProvider()),
+          ChangeNotifierProvider(create: (_) => StudentProfileProvider()),
+
       ],
       child: const App(),
     ),);

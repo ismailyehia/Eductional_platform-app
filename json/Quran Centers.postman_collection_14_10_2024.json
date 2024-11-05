@@ -1,0 +1,798 @@
+{
+	"info": {
+		"_postman_id": "b04d06c3-41c3-4ddf-8bcd-e0e1ffd793e4",
+		"name": "Quran Centers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32704358",
+		"_collection_link": "https://smartwork-4582.postman.co/workspace/Smartwork-Workspace~3b5c4d7b-c12b-4300-847d-1fb98ff71d41/collection/32704358-b04d06c3-41c3-4ddf-8bcd-e0e1ffd793e4?action=share&source=collection_link&creator=32704358"
+	},
+	"item": [
+		{
+			"name": "Teachers",
+			"item": [
+				{
+					"name": "Get Show Class",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quran.smartwork.com.tr/api/teachers/classes/2",
+							"protocol": "https",
+							"host": [
+								"quran",
+								"smartwork",
+								"com",
+								"tr"
+							],
+							"path": [
+								"api",
+								"teachers",
+								"classes",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Student Attendance get",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\" : \"2024-09-29\",\r\n    \"class_room_id\" : 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quran.smartwork.com.tr/api/students/attendance/fetch",
+							"protocol": "https",
+							"host": [
+								"quran",
+								"smartwork",
+								"com",
+								"tr"
+							],
+							"path": [
+								"api",
+								"students",
+								"attendance",
+								"fetch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Student Attendance store",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"students\" : \r\n    [\r\n            {\r\n                \"user_id\" : 5,\r\n                \"has_attended\" : false\r\n            },\r\n            {\r\n                \"user_id\" : 6,\r\n                \"has_attended\" : true\r\n            }\r\n\r\n    ],\r\n    \"date\" : \"2024-09-29\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quran.smartwork.com.tr/api/students/attendance/store",
+							"protocol": "https",
+							"host": [
+								"quran",
+								"smartwork",
+								"com",
+								"tr"
+							],
+							"path": [
+								"api",
+								"students",
+								"attendance",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Teacher Classes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quran.smartwork.com.tr/api/teachers/classes",
+							"protocol": "https",
+							"host": [
+								"quran",
+								"smartwork",
+								"com",
+								"tr"
+							],
+							"path": [
+								"api",
+								"teachers",
+								"classes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Teacher Students",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quran.smartwork.com.tr/api/teachers/students",
+							"protocol": "https",
+							"host": [
+								"quran",
+								"smartwork",
+								"com",
+								"tr"
+							],
+							"path": [
+								"api",
+								"teachers",
+								"students"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Class Progress",
+			"item": [
+				{
+					"name": "Class Room Courses",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quran.smartwork.com.tr/api/classRooms/2",
+							"protocol": "https",
+							"host": [
+								"quran",
+								"smartwork",
+								"com",
+								"tr"
+							],
+							"path": [
+								"api",
+								"classRooms",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Class Update Progress",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course_id\" :1,\r\n    \"lesson_id\" : null,\r\n    \"date\" : \"2024-09-29\",\r\n    \"note\" : \"note\",\r\n    \"surah_id\" : 6,\r\n    \"score\" : 5,\r\n    \"from\" : 7,  \r\n    \"to\" : 8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quran.smartwork.com.tr/api/classRooms/1/courses/1/progresses/3",
+							"protocol": "https",
+							"host": [
+								"quran",
+								"smartwork",
+								"com",
+								"tr"
+							],
+							"path": [
+								"api",
+								"classRooms",
+								"1",
+								"courses",
+								"1",
+								"progresses",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Class Room Course Progress",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quran.smartwork.com.tr/api/classRooms/1/courses/1/progresses",
+							"protocol": "https",
+							"host": [
+								"quran",
+								"smartwork",
+								"com",
+								"tr"
+							],
+							"path": [
+								"api",
+								"classRooms",
+								"1",
+								"courses",
+								"1",
+								"progresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Class Create Progress",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course_id\" : 1,\r\n    \"lesson_id\" : null,\r\n    \"date\" : \"2024-09-30\",\r\n    \"note\" : \"note\",\r\n    \"surah_id\" : 1,  \r\n    \"from\" : 3,  \r\n    \"to\" : 8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quran.smartwork.com.tr/api/classRooms/1/courses/1/progresses",
+							"protocol": "https",
+							"host": [
+								"quran",
+								"smartwork",
+								"com",
+								"tr"
+							],
+							"path": [
+								"api",
+								"classRooms",
+								"1",
+								"courses",
+								"1",
+								"progresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Class Delete Progress",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course_id\" : 5,\r\n    \"lesson_id\" : null,\r\n    \"date\" : \"2024-09-29\",\r\n    \"note\" : \"note\",\r\n    \"sura_id\" : 1,  \r\n    \"from\" : 3,  \r\n    \"to\" : 8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quran.smartwork.com.tr/api/classRooms/1/courses/1/progresses/2",
+							"protocol": "https",
+							"host": [
+								"quran",
+								"smartwork",
+								"com",
+								"tr"
+							],
+							"path": [
+								"api",
+								"classRooms",
+								"1",
+								"courses",
+								"1",
+								"progresses",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Student Progress",
+			"item": [
+				{
+					"name": "Student Courses",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quran.smartwork.com.tr/api/students/5",
+							"protocol": "https",
+							"host": [
+								"quran",
+								"smartwork",
+								"com",
+								"tr"
+							],
+							"path": [
+								"api",
+								"students",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Student Update Progress",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course_id\" : 1,\r\n    \"lesson_id\" : null,\r\n    \"date\" : \"2024-09-29\",\r\n    \"note\" : \"note\",\r\n    \"surah_id\" : 6,\r\n    \"score\" : 4,\r\n    \"from\" : 7,  \r\n    \"to\" : 8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quran.smartwork.com.tr/api/students/5/courses/1/progresses/1",
+							"protocol": "https",
+							"host": [
+								"quran",
+								"smartwork",
+								"com",
+								"tr"
+							],
+							"path": [
+								"api",
+								"students",
+								"5",
+								"courses",
+								"1",
+								"progresses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Student Course Progress",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quran.smartwork.com.tr/api/students/5/courses/1/progresses",
+							"protocol": "https",
+							"host": [
+								"quran",
+								"smartwork",
+								"com",
+								"tr"
+							],
+							"path": [
+								"api",
+								"students",
+								"5",
+								"courses",
+								"1",
+								"progresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Student Create Progress",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course_id\" : 1,\r\n    \"lesson_id\" : null,\r\n    \"date\" : \"2024-09-29\",\r\n    \"note\" : \"note\",\r\n    \"surah_id\" : 1,\r\n    \"score\" : 3,\r\n    \"from\" : 5,  \r\n    \"to\" : 8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quran.smartwork.com.tr/api/students/5/courses/1/progresses",
+							"protocol": "https",
+							"host": [
+								"quran",
+								"smartwork",
+								"com",
+								"tr"
+							],
+							"path": [
+								"api",
+								"students",
+								"5",
+								"courses",
+								"1",
+								"progresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Student Delete Progress",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course_id\" : 5,\r\n    \"lesson_id\" : null,\r\n    \"date\" : \"2024-09-29\",\r\n    \"note\" : \"note\",\r\n    \"sura_id\" : 1,  \r\n    \"from\" : 3,  \r\n    \"to\" : 8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://quran.smartwork.com.tr/api/students/5/courses/1/progresses/13",
+							"protocol": "https",
+							"host": [
+								"quran",
+								"smartwork",
+								"com",
+								"tr"
+							],
+							"path": [
+								"api",
+								"students",
+								"5",
+								"courses",
+								"1",
+								"progresses",
+								"13"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get Course Details and Lessons",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://quran.smartwork.com.tr/api/course/1",
+					"protocol": "https",
+					"host": [
+						"quran",
+						"smartwork",
+						"com",
+						"tr"
+					],
+					"path": [
+						"api",
+						"course",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Surahs",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://quran.smartwork.com.tr/api/surahs",
+					"protocol": "https",
+					"host": [
+						"quran",
+						"smartwork",
+						"com",
+						"tr"
+					],
+					"path": [
+						"api",
+						"surahs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"teacher2@smartwork.com.tr\",\r\n    \"password\" : \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://quran.smartwork.com.tr/api/login",
+					"protocol": "https",
+					"host": [
+						"quran",
+						"smartwork",
+						"com",
+						"tr"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "3|nNHL1T2LpYL0j7ehSS0AAMDSXo1c9A7ucTkrZg72b3130661",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

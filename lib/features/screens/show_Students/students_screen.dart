@@ -3,13 +3,32 @@ import 'package:provider/provider.dart';
 import 'package:quran_tdress/features/screens/home/widgets/get_student_course.dart';
 import 'package:quran_tdress/provider/studentprovider/student_provider.dart';
 
-class StudentsScreen extends StatelessWidget {
+class StudentsScreen extends StatefulWidget {
   const StudentsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    Future.microtask(() =>
+  State<StudentsScreen> createState() => _StudentsScreenState();
+}
+
+class _StudentsScreenState extends State<StudentsScreen> {
+
+
+  @override
+    void initState() {
+    super.initState();
+        Future.microtask(() =>
         Provider.of<StudentProvider>(context, listen: false).fetchStudents());
+  
+  }
+
+          TextEditingController searchcontroller = TextEditingController();
+
+
+  @override
+
+
+  Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(),
       body: Consumer<StudentProvider>(
@@ -35,12 +54,32 @@ class StudentsScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 20), // Space below the title
+              const SizedBox(height: 10,),
+
+              TextField(
+                controller: searchcontroller,
+                onChanged: (value) {
+                    studentProvider.updatelist(value);
+                },
+                decoration: InputDecoration(
+                    border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                        borderSide: BorderSide(width: 1)),
+                    labelText: "Search Students",
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 17, horizontal: 12),
+                    suffixIcon: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.search),
+                    ))),
+
+
+              const SizedBox(height: 20), 
               Expanded(
                 child: ListView.builder(
-                  itemCount: studentProvider.students.length,
+                  itemCount: studentProvider.filteredStudents.length,
                   itemBuilder: (context, index) {
-                    final student = studentProvider.students[index];
+                    final student = studentProvider.filteredStudents[index];
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>  StudentCoursesScreen(studentId: student.id,)));
@@ -64,3 +103,6 @@ class StudentsScreen extends StatelessWidget {
     );
   }
 }
+
+
+

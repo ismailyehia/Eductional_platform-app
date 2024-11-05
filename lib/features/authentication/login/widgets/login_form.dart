@@ -204,6 +204,7 @@ class _TLoinFormState extends State<TLoinForm> {
               final password = passwordcontroller.text;
               login(email, password);
             },
+            txtcolors: Colors.white,
             txtcolor: Colors.purple,
           ),
         ],

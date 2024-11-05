@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -6,8 +5,12 @@ import 'package:quran_tdress/models/student_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StudentProvider with ChangeNotifier {
+   List<Student> filteredStudents = [];
   List<Student> _students = [];
+
   bool isLoading = false;
+
+  
 
   List<Student> get students => _students;
 
@@ -38,11 +41,13 @@ class StudentProvider with ChangeNotifier {
 
       if (response.statusCode == 200) {
         List<dynamic> jsonData = json.decode(response.body);
-
+        
         _students = jsonData.map((item) => Student.fromJson(item)).toList();
+        filteredStudents = _students;
         notifyListeners();
       } else {
-        print("Error: Failed to load students. Status Code: ${response.statusCode}");
+        print(
+            "Error: Failed to load students. Status Code: ${response.statusCode}");
       }
     } catch (e) {
       print("Error fetching students: $e");
@@ -51,4 +56,23 @@ class StudentProvider with ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+
+
+
+  void updatelist(String val) {
+    if (val.isEmpty) {
+      filteredStudents = _students;
+    } else {
+      filteredStudents = _students.where((student) {
+        return student.name.toLowerCase().contains(val.toLowerCase());
+      }).toList();
+    }
+    notifyListeners();
+  }
+
+
+
 }
+
+
+

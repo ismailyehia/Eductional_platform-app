@@ -121,7 +121,7 @@ class ClassesScreen extends StatelessWidget {
                     const SizedBox(height: 40,),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,MaterialPageRoute( builder: (context) => ProgressTeacher(classname: classStudent.name ,classid: classStudent.id)),
+                        Navigator.push(context,MaterialPageRoute( builder: (context) => ProgressTeacher(classname: classStudent.name ,classid: classStudent.id,)),
             );},
                       child: TRoundedContainer(
                                         borderwidth: 3,

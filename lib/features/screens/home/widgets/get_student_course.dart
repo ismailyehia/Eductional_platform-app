@@ -1,9 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:quran_tdress/features/screens/home/widgets/date_calender.dart';
-import 'package:quran_tdress/features/shop/class_progress_button/progress_details.dart';
+import 'package:quran_tdress/features/screens/show_Students/progress_details_with_score.dart';
 import 'package:quran_tdress/features/shop/class_progress_button/progress_details_quran.dart';
 import 'package:quran_tdress/provider/studentprovider/student_courses_provider.dart';
 
@@ -14,13 +13,11 @@ class StudentCoursesScreen extends StatefulWidget {
 
   @override
   State<StudentCoursesScreen> createState() => _StudentCoursesScreenState();
-
 }
 
 class _StudentCoursesScreenState extends State<StudentCoursesScreen> {
-    bool _showCalendar = false;
+  bool _showCalendar = false;
 
-    
   @override
   Widget build(BuildContext context) {
     final studentProvider =
@@ -53,7 +50,7 @@ class _StudentCoursesScreenState extends State<StudentCoursesScreen> {
           }
 
           final studentModel = studentProvider.student;
-          
+
           // Check if studentModel is null
           if (studentModel == null) {
             print("Error: Student model is null.");
@@ -79,7 +76,7 @@ class _StudentCoursesScreenState extends State<StudentCoursesScreen> {
               //     ),
               //   ),
               // ),
-          
+
               // Age and Created At
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -101,9 +98,9 @@ class _StudentCoursesScreenState extends State<StudentCoursesScreen> {
                   ],
                 ),
               ),
-          
+
               const SizedBox(height: 20),
-          
+
               // Other Info
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -120,9 +117,9 @@ class _StudentCoursesScreenState extends State<StudentCoursesScreen> {
                   ],
                 ),
               ),
-          
+
               const SizedBox(height: 15),
-          
+
               // Courses Grid
               SizedBox(
                 height: 200,
@@ -136,29 +133,30 @@ class _StudentCoursesScreenState extends State<StudentCoursesScreen> {
                   itemCount: studentModel.courses.length,
                   itemBuilder: (context, index) {
                     final course = studentModel.courses[index];
-          
+
                     return GestureDetector(
                       onTap: () {
                         print("Course id is : ${course.id}");
+                        print("Student id is : ${widget.studentId}");
                         if (course.type == "quran") {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  ProgressDetailsQuran(courseeeid: course.id),
+                                  ProgressDetailsQuran(courseeeid: course.id,),
                             ),
                           );
                         } else {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  ProgressDetails(courseeid: course.id),
+                              builder: (context) => ProgressDetailsScore(
+                                  courseeid: course.id,
+                                  studentid: widget.studentId),
                             ),
                           );
                         }
                       },
-          
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -216,9 +214,9 @@ class _StudentCoursesScreenState extends State<StudentCoursesScreen> {
                   },
                 ),
               ),
-          
+
               const SizedBox(height: 2),
-          
+
               // Attendance Report Header
               Row(
                 children: [
@@ -235,14 +233,14 @@ class _StudentCoursesScreenState extends State<StudentCoursesScreen> {
                         setState(() {
                           _showCalendar = false;
                         });
-                      }, icon: const Icon(Iconsax.clipboard)),
+                      },
+                      icon: const Icon(Iconsax.clipboard)),
                   IconButton(
                       onPressed: () {
-                        
                         setState(() {
                           _showCalendar = true;
                         });
-                        
+
                         // // Attendance? attendence;
                         // // Navigator.push(
                         // //     context,
@@ -255,11 +253,9 @@ class _StudentCoursesScreenState extends State<StudentCoursesScreen> {
                       icon: const Icon(Iconsax.calendar)),
                 ],
               ),
-          
+
               const SizedBox(height: 10),
-          
-              
-          
+
               // Attendance Date Label
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -283,59 +279,60 @@ class _StudentCoursesScreenState extends State<StudentCoursesScreen> {
                   ),
                 ]),
               ),
-          
+
               const SizedBox(height: 15),
-          
+
               // Attendance List
-          
+
               Expanded(
-                child: _showCalendar ? DateCalender(attendances: attendance ) : 
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: studentModel.attendances.length,
-                  itemBuilder: (context, index) {
-                    final attendance = studentModel.attendances[index];
-                    print(
-                        "Attendance Date: ${attendance.date}, Status: ${attendance.hasAttended}");
-                            
-                    return Container(
-                      height: 50,
-                      padding: const EdgeInsets.only(left: 3, right: 40),
-                      margin: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: Colors.black),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            attendance.date,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              overflow: TextOverflow.ellipsis,
+                child: _showCalendar
+                    ? DateCalender(attendances: attendance)
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: studentModel.attendances.length,
+                        itemBuilder: (context, index) {
+                          final attendance = studentModel.attendances[index];
+                          print(
+                              "Attendance Date: ${attendance.date}, Status: ${attendance.hasAttended}");
+
+                          return Container(
+                            height: 50,
+                            padding: const EdgeInsets.only(left: 3, right: 40),
+                            margin: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(color: Colors.black),
                             ),
-                          ),
-                            
-                          const SizedBox(
-                            width: 60,
-                          ),
-                          attendance.hasAttended == 1
-                              ? const Icon(
-                                  Icons.check_box_rounded,
-                                  color: Colors.green,
-                                  size: 30,
-                                ) // Check icon if attended
-                              : const Icon(Icons.close_outlined,
-                                  color: Colors.red,
-                                  size: 30), // Close icon if not attended
-                        ],
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  attendance.date,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+
+                                const SizedBox(
+                                  width: 60,
+                                ),
+                                attendance.hasAttended == 1
+                                    ? const Icon(
+                                        Icons.check_box_rounded,
+                                        color: Colors.green,
+                                        size: 30,
+                                      ) // Check icon if attended
+                                    : const Icon(Icons.close_outlined,
+                                        color: Colors.red,
+                                        size: 30), // Close icon if not attended
+                              ],
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
               ),
             ],
           );
@@ -344,6 +341,3 @@ class _StudentCoursesScreenState extends State<StudentCoursesScreen> {
     );
   }
 }
-
-
-

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.text, this.func,  this.txtcolor = Colors.white});
+  const CustomButton(
+      {super.key, required this.text, this.func, this.txtcolor = Colors.purple,  this.txtcolors = Colors.white});
 
   final String text;
+  final Color txtcolors;
   final void Function()? func;
   final Color txtcolor;
 
@@ -20,7 +22,7 @@ class CustomButton extends StatelessWidget {
         onPressed: func,
         child: Text(
           text,
-          style: TextStyle(color: txtcolor,fontSize: 19),
+          style: TextStyle(color: txtcolors, fontSize: 19),
         ),
       ),
     );

@@ -1,13 +1,13 @@
 class Progressget {
-  final int id;
-  final int courseId;
-  final String date;
-  final String note;
-  final int score;
-  final Lesson? lesson;
-  final Surah? surah;
+  final int id; 
+  final int? courseId; // Nullable int
+  final String date; // Nullable string
+  final String? note; // Nullable string
+  final int? score; // Nullable int
+  final Lesson? lesson; // Nullable lesson
+  final Surah? surah; // Nullable surah
   final int? from;
-  final int? to;
+  final int? to; 
   Progressget({
     required this.score,
     required this.courseId,
@@ -20,21 +20,17 @@ class Progressget {
     this.to,
   });
 
-  factory Progressget.fromJson(Map<String, dynamic> json) {
+   factory Progressget.fromJson(Map<String, dynamic> json) {
     return Progressget(
-      id: json['id'] as int,
-      courseId: json['course_id'] as int,
-      date: json['date'] as String,
-      note: json['note'] as String,
-      score: json['score'] as int,
-      lesson: json['lesson'] != null
-          ? Lesson.fromJson(json['lesson'])
-          : null, // Handle nullable lesson
-      surah: json['surah'] != null
-          ? Surah.fromJson(json['surah'])
-          : null, // Handle nullable surah
-      from: json['from'] != null ? json['from'] as int : null, // Nullable from
-      to: json['to'] != null ? json['to'] as int : null, // Nullable to
+      id: json['id'] as int ,
+      courseId: json['course_id'] != null ? json['course_id'] as int : null,
+      date: json['date'] as String, 
+      note: json['note'] as String?, 
+      score: json['score'] != null ? json['score'] as int : null, 
+      lesson: json['lesson'] != null ? Lesson.fromJson(json['lesson']) : null, 
+      surah: json['surah'] != null ? Surah.fromJson(json['surah']) : null,
+      from: json['from'] != null ? json['from'] as int : null,
+      to: json['to'] != null ? json['to'] as int : null,
     );
   }
 }

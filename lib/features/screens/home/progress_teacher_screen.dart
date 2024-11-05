@@ -15,6 +15,7 @@ class ProgressTeacher extends StatefulWidget {
 
   final String classname;
   final int classid;
+  
 
   @override
   State<ProgressTeacher> createState() => _ProgressTeacherState();
@@ -120,6 +121,8 @@ class _ProgressTeacherState extends State<ProgressTeacher> {
             ),
 
             const Divider(thickness: 1,),
+
+            //Students in the class
             
             Text("Students in this Class",
                 style: Theme.of(context).textTheme.headlineMedium),

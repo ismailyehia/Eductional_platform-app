@@ -102,6 +102,7 @@ class StudentProfileProvider extends ChangeNotifier {
         ScaffoldMessenger.of(context).showSnackBar(
             customSnackBar("profile information Updated Successfully!"));
         Navigator.push(
+          
           context,
           MaterialPageRoute(
               builder: (context) => const ProfileScreenStudents()),
